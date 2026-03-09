@@ -1,0 +1,343 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Word help &amp; learning - Microsoft Support</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="{% url 'app/style.css' %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="font-sans text-gray-800 bg-white">
+
+  <!-- Top Promo Banner -->
+  <div id="promo-banner" class="promo-banner flex items-center justify-center gap-4 px-4 py-2 text-sm text-gray-800 bg-yellow-50 border-b border-yellow-200">
+    <span>You're invited to try <strong>Microsoft 365</strong> for free</span>
+    <a href="#" class="unlock-btn px-4 py-1 text-white text-xs font-semibold rounded-sm">Unlock now</a>
+    <button id="close-banner" class="ml-auto text-gray-500 hover:text-gray-800 text-lg leading-none">&times;</button>
+  </div>
+
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 flex items-center gap-6 h-14">
+      <!-- Microsoft Logo -->
+      <a href="#" class="flex items-center gap-2 shrink-0">
+        <svg width="24" height="24" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
+          <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
+          <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
+          <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
+        </svg>
+        <span class="text-gray-600 font-semibold text-sm tracking-tight">Microsoft</span>
+      </a>
+      <span class="text-gray-300">|</span>
+      <span class="text-gray-700 font-semibold text-sm">Support</span>
+      <nav class="flex items-center gap-1 ml-4 text-sm text-gray-600">
+        <a href="#" class="nav-link px-2 py-1 hover:text-blue-600">Microsoft 365</a>
+        <a href="#" class="nav-link px-2 py-1 hover:text-blue-600">Office</a>
+        <a href="#" class="nav-link px-2 py-1 hover:text-blue-600">Products ∨</a>
+        <a href="#" class="nav-link px-2 py-1 hover:text-blue-600">More ∨</a>
+      </nav>
+      <a href="#" class="ml-4 copilot-btn px-3 py-1 text-xs font-semibold rounded-sm border">Try Copilot Chat</a>
+      <div class="ml-auto flex items-center gap-4">
+        <span class="text-sm text-gray-500">All Microsoft ∨</span>
+        <button class="text-gray-500 hover:text-gray-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/>
+          </svg>
+        </button>
+        <div class="w-8 h-8 rounded-full bg-yellow-400 flex items-center justify-center text-sm font-bold text-white">U</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section py-12 text-center text-white">
+    <h1 class="text-4xl font-bold mb-6 tracking-tight">Word help &amp; learning</h1>
+    <div class="relative max-w-lg mx-auto">
+      <input
+        type="text"
+        placeholder="How can we help you?"
+        class="w-full px-5 py-3 pr-12 rounded-sm text-gray-800 text-sm shadow focus:outline-none"
+      />
+      <button class="absolute right-0 top-0 h-full px-4 search-arrow text-white rounded-r-sm">
+        &rarr;
+      </button>
+    </div>
+  </section>
+
+  <!-- Category Navigation -->
+  <nav class="cat-nav border-b border-gray-200 bg-white">
+    <div class="max-w-5xl mx-auto px-4 flex items-center justify-around py-3">
+      <a href="#" class="cat-item flex flex-col items-center gap-1 text-xs text-gray-600 hover:text-blue-600 px-3 py-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        Get started
+      </a>
+      <a href="#" class="cat-item flex flex-col items-center gap-1 text-xs text-gray-600 hover:text-blue-600 px-3 py-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>
+        Collaborate
+      </a>
+      <a href="#" class="cat-item flex flex-col items-center gap-1 text-xs text-gray-600 hover:text-blue-600 px-3 py-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16"/></svg>
+        Format text
+      </a>
+      <a href="#" class="cat-item flex flex-col items-center gap-1 text-xs text-gray-600 hover:text-blue-600 px-3 py-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Pages &amp; layouts
+      </a>
+      <a href="#" class="cat-item flex flex-col items-center gap-1 text-xs text-gray-600 hover:text-blue-600 px-3 py-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Pictures
+      </a>
+      <a href="#" class="cat-item flex flex-col items-center gap-1 text-xs text-gray-600 hover:text-blue-600 px-3 py-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+        Save &amp; print
+      </a>
+      <a href="#" class="cat-item flex flex-col items-center gap-1 text-xs text-gray-600 hover:text-blue-600 px-3 py-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Mail merge
+      </a>
+    </div>
+  </nav>
+
+  <!-- AI Promo Section -->
+  <section class="max-w-5xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div>
+      <h2 class="text-2xl font-bold mb-4">Unlock the power of AI in Word</h2>
+      <ul class="space-y-2 mb-6">
+        <li><a href="#" class="text-blue-600 text-sm font-semibold hover:underline uppercase tracking-wide">Draft and add content with Copilot in Word &rsaquo;</a></li>
+        <li><a href="#" class="text-blue-600 text-sm font-semibold hover:underline uppercase tracking-wide">Create a summary of your document with Copilot in Word &rsaquo;</a></li>
+        <li><a href="#" class="text-blue-600 text-sm font-semibold hover:underline uppercase tracking-wide">Ask Copilot to help find additional details &rsaquo;</a></li>
+      </ul>
+      <p class="text-sm text-gray-600 mb-4">Get AI-powered features in Microsoft 365</p>
+      <a href="#" class="buy-btn inline-block px-5 py-2 text-white text-sm font-semibold rounded-sm">Buy Microsoft 365 &rsaquo;</a>
+    </div>
+    <div class="ai-video-card rounded-lg overflow-hidden shadow-lg relative">
+      <div class="bg-gradient-to-br from-blue-100 to-blue-200 h-48 flex items-center justify-center relative">
+        <div class="text-center p-6">
+          <p class="text-xs text-blue-600 font-semibold uppercase mb-1">Copilot in Word</p>
+          <p class="text-lg font-bold text-gray-800">Ask What to include<br/>in a Word doc</p>
+        </div>
+        <button class="play-btn absolute inset-0 flex items-center justify-center">
+          <div class="w-14 h-14 bg-white bg-opacity-80 rounded-full flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-blue-600 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Explore Word -->
+  <section class="bg-gray-50 py-12">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-2xl font-bold text-center mb-8">Explore Word</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <!-- Card 1 -->
+        <div class="explore-card bg-white rounded p-5 shadow-sm hover:shadow-md transition-shadow">
+          <div class="card-thumb h-24 rounded mb-4 bg-gradient-to-br from-orange-100 to-yellow-200 flex items-center justify-center">
+            <svg class="w-10 h-10 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/></svg>
+          </div>
+          <h3 class="font-semibold text-sm mb-2">No design skills?</h3>
+          <p class="text-xs text-gray-500 mb-3">We have tons of templates to jump start your next project.</p>
+          <a href="#" class="text-blue-600 text-xs font-semibold hover:underline">Get customizable templates to take your project to the next level &rsaquo;</a>
+        </div>
+        <!-- Card 2 -->
+        <div class="explore-card bg-white rounded p-5 shadow-sm hover:shadow-md transition-shadow">
+          <div class="card-thumb h-24 rounded mb-4 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+            <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="font-semibold text-sm mb-2">Create &amp; collaborate</h3>
+          <p class="text-xs text-gray-500 mb-3">Learn how to share a document with others and collaborate to make it shine.</p>
+          <a href="#" class="text-blue-600 text-xs font-semibold hover:underline">Manage options when you share your document &rsaquo;</a>
+        </div>
+        <!-- Card 3 -->
+        <div class="explore-card bg-white rounded p-5 shadow-sm hover:shadow-md transition-shadow">
+          <div class="card-thumb h-24 rounded mb-4 bg-gradient-to-br from-red-100 to-orange-200 flex items-center justify-center">
+            <svg class="w-10 h-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <h3 class="font-semibold text-sm mb-2">Are you a small business?</h3>
+          <p class="text-xs text-gray-500 mb-3">Visit the small business help &amp; learning page to learn how you can use Microsoft 365 in your small business.</p>
+          <a href="#" class="text-blue-600 text-xs font-semibold hover:underline">Find ways to help your small business grow and succeed with Microsoft 365 &rsaquo;</a>
+        </div>
+        <!-- Card 4 -->
+        <div class="explore-card bg-white rounded p-5 shadow-sm hover:shadow-md transition-shadow">
+          <div class="card-thumb h-24 rounded mb-4 bg-gradient-to-br from-green-100 to-teal-200 flex items-center justify-center">
+            <svg class="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </div>
+          <h3 class="font-semibold text-sm mb-2">Support for Word 2016 and Word 2019 has ended</h3>
+          <p class="text-xs text-gray-500 mb-3">Learn what end of support means and how to upgrade to Microsoft 365.</p>
+          <a href="#" class="text-blue-600 text-xs font-semibold hover:underline">Get details about the end of support for Office 2016 and Office 2019 &rsaquo;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trending Topics -->
+  <section class="max-w-5xl mx-auto px-6 py-12">
+    <h2 class="text-2xl font-bold text-center mb-8">Trending topics</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="font-semibold text-sm mb-3 pb-1 border-b border-gray-200">Customization</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Download free, pre-built templates</a></li>
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Insert WordArt</a></li>
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Change or set the default font</a></li>
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Add a chart to your document</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-sm mb-3 pb-1 border-b border-gray-200">Collaboration</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Dictate your documents</a></li>
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Track changes</a></li>
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Share and collaborate with Word for the web</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-sm mb-3 pb-1 border-b border-gray-200">Accessibility</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Accessibility support</a></li>
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Make your Word documents accessible to people with disabilities</a></li>
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Use a screen reader to explore and navigate Word</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold text-sm mb-3 pb-1 border-b border-gray-200">Formatting</h3>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Rotate a page to landscape or portrait orientation</a></li>
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Start page numbering later in your document</a></li>
+          <li><a href="#" class="text-blue-600 text-xs hover:underline">Change the capitalization or case of text</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Microsoft Editor Section -->
+  <section class="editor-section py-10">
+    <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div class="editor-video-card rounded-lg overflow-hidden shadow-lg relative">
+        <div class="bg-gradient-to-br from-blue-600 to-blue-800 p-8 h-44 flex items-end">
+          <div>
+            <p class="text-xs text-blue-200 font-semibold uppercase mb-1">Word</p>
+            <p class="text-xl font-bold text-white leading-tight">Bring out your<br/>best writer with<br/>Microsoft Editor</p>
+          </div>
+          <button class="play-btn absolute inset-0 flex items-center justify-center">
+            <div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div>
+        <h2 class="text-2xl font-bold mb-4">Get writing help when you need it most</h2>
+        <p class="text-sm text-gray-600 mb-4">Microsoft Editor is the intelligent writing assistant that helps you write with more confidence in over 20 languages.</p>
+        <a href="#" class="text-blue-600 text-xs font-semibold hover:underline uppercase tracking-wide">Use Editor to check grammar and more in documents, mail, and the web &rsaquo;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-100 border-t border-gray-200 pt-10 pb-6 mt-10">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-xs text-gray-600">
+      <div>
+        <h4 class="font-semibold text-gray-800 mb-3">What's new</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-blue-600">Surface Pro</a></li>
+          <li><a href="#" class="hover:text-blue-600">Surface Laptop</a></li>
+          <li><a href="#" class="hover:text-blue-600">Surface Laptop Studio 2</a></li>
+          <li><a href="#" class="hover:text-blue-600">Copilot for organisations</a></li>
+          <li><a href="#" class="hover:text-blue-600">Copilot for personal use</a></li>
+          <li><a href="#" class="hover:text-blue-600">AI in Windows</a></li>
+          <li><a href="#" class="hover:text-blue-600">Explore Microsoft products</a></li>
+          <li><a href="#" class="hover:text-blue-600">Windows 11 apps</a></li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-6 mb-3">Business</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-blue-600">Microsoft AI</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft Security</a></li>
+          <li><a href="#" class="hover:text-blue-600">Dynamics 365</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft 365</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft Power Platform</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft Teams</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft 365 Copilot</a></li>
+          <li><a href="#" class="hover:text-blue-600">Small business</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-gray-800 mb-3">Microsoft Store</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-blue-600">Account profile</a></li>
+          <li><a href="#" class="hover:text-blue-600">Download Center</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft Store support</a></li>
+          <li><a href="#" class="hover:text-blue-600">Returns</a></li>
+          <li><a href="#" class="hover:text-blue-600">Order tracking</a></li>
+          <li><a href="#" class="hover:text-blue-600">Certified Refurbished</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft Store Promise</a></li>
+          <li><a href="#" class="hover:text-blue-600">Flexible Payments</a></li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-6 mb-3">Developer &amp; IT</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-blue-600">Azure</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft Developer</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft Learn</a></li>
+          <li><a href="#" class="hover:text-blue-600">Support for AI marketplace apps</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft Tech Community</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft Marketplace</a></li>
+          <li><a href="#" class="hover:text-blue-600">Marketplace Rewards</a></li>
+          <li><a href="#" class="hover:text-blue-600">Visual Studio</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold text-gray-800 mb-3">Education</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-blue-600">Microsoft in education</a></li>
+          <li><a href="#" class="hover:text-blue-600">Devices for education</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft Teams for Education</a></li>
+          <li><a href="#" class="hover:text-blue-600">Microsoft 365 Education</a></li>
+          <li><a href="#" class="hover:text-blue-600">How to buy for your school</a></li>
+          <li><a href="#" class="hover:text-blue-600">Educator training and development</a></li>
+          <li><a href="#" class="hover:text-blue-600">Deals for students and parents</a></li>
+          <li><a href="#" class="hover:text-blue-600">AI for education</a></li>
+        </ul>
+        <h4 class="font-semibold text-gray-800 mt-6 mb-3">Company</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:text-blue-600">Careers</a></li>
+          <li><a href="#" class="hover:text-blue-600">About Microsoft</a></li>
+          <li><a href="#" class="hover:text-blue-600">Company news</a></li>
+          <li><a href="#" class="hover:text-blue-600">Privacy at Microsoft</a></li>
+          <li><a href="#" class="hover:text-blue-600">Investors</a></li>
+          <li><a href="#" class="hover:text-blue-600">Diversity and inclusion</a></li>
+          <li><a href="#" class="hover:text-blue-600">Accessibility</a></li>
+          <li><a href="#" class="hover:text-blue-600">Sustainability</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-6 mt-8 pt-4 border-t border-gray-300 flex flex-wrap items-center gap-4 text-xs text-gray-500">
+      <div class="flex items-center gap-1">
+        <svg width="16" height="16" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg">
+          <rect x="1" y="1" width="9" height="9" fill="#f25022"/>
+          <rect x="11" y="1" width="9" height="9" fill="#7fba00"/>
+          <rect x="1" y="11" width="9" height="9" fill="#00a4ef"/>
+          <rect x="11" y="11" width="9" height="9" fill="#ffb900"/>
+        </svg>
+        <span>English (United States)</span>
+      </div>
+      <span>&#169; Microsoft 2025</span>
+      <div class="flex flex-wrap gap-4 ml-auto">
+        <a href="#" class="hover:text-blue-600">Sitemap</a>
+        <a href="#" class="hover:text-blue-600">Contact Microsoft</a>
+        <a href="#" class="hover:text-blue-600">Privacy</a>
+        <a href="#" class="hover:text-blue-600">Terms of use</a>
+        <a href="#" class="hover:text-blue-600">Trademarks</a>
+        <a href="#" class="hover:text-blue-600">Safety &amp; eco</a>
+        <a href="#" class="hover:text-blue-600">Recycling</a>
+        <a href="#" class="hover:text-blue-600">About our ads</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% url 'app/ususcript.js' %}"></script>
+</body>
+</html>
