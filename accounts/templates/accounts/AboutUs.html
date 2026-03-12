@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>About Us — OfficeEase</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap');
+
+    * { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* ── Page fade-in ── */
+    body { opacity: 0; animation: fadeInPage 0.6s ease forwards; }
+    @keyframes fadeInPage { to { opacity: 1; } }
+
+    /* ── Staggered header reveals ── */
+    .reveal { opacity: 0; transform: translateY(24px); animation: revealUp 0.65s ease forwards; }
+    .reveal-1 { animation-delay: 0.15s; }
+    .reveal-2 { animation-delay: 0.30s; }
+    .reveal-3 { animation-delay: 0.45s; }
+    @keyframes revealUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* ── Card hover lift ── */
+    .team-card {
+      transition: transform 0.35s cubic-bezier(.22,.68,0,1.2),
+                  box-shadow 0.35s ease;
+    }
+    .team-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 32px 64px -12px rgba(0,0,0,0.18);
+    }
+
+    /* ── Icon badge spin on card hover ── */
+    .team-card:hover .app-icon { transform: rotate(-8deg) scale(1.15); }
+    .app-icon { transition: transform 0.35s cubic-bezier(.22,.68,0,1.2); }
+
+    /* ── Color stripe slide on hover ── */
+    .card-stripe {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 4px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .team-card:hover .card-stripe { transform: scaleX(1); }
+
+    /* ── Mission pillars hover ── */
+    .pillar {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .pillar:hover {
+      background-color: blue-600;
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -8px rgba(0,0,0,0.10);
+    }
+
+    /* ── Ping dot ── */
+    @keyframes ping { 75%,100% { transform: scale(2); opacity: 0; } }
+    .animate-ping { animation: ping 1.4s cubic-bezier(0,0,.2,1) infinite; }
+
+    /* ── Word gradient header ── */
+    .hero-bg {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8f2ff 40%, #f8faff 100%);
+    }
+
+    /* ── Subtle grid texture ── */
+    .grid-texture {
+      background-image:
+        linear-gradient(rgba(37,99,235,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,99,235,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+  </style>
+
+</head>
+<body class="bg-white text-slate-900">
+
+  <!-- ══════════════════════════════════════
+       NAV  (matches home.html style)
+  ══════════════════════════════════════ -->
+  <nav class="max-w-7xl mx-auto flex items-center justify-between bg-blue-50 px-10 py-3 rounded-2xl mt-4 mx-4">
+    <div class="text-3xl font-semibold">OfficeEase</div>
+    <ul class="md:flex gap-8 text-sm">
+      <li class="hover:text-black cursor-pointer"><a href="{% url 'home' %}">Home</a></li>
+      
+      {% if user.is_authenticated %}
+      <li class="hover:text-black cursor-pointer"><a href="#">Courses</a></li>
+      <li class="hover:text-black cursor-pointer"><a href="#">How It Works</a></li>
+      {% else %}
+      <li class="hover:text-black cursor-pointer"><a href="{% url 'auth' %}?next={{ request.path }}">Courses</a></li>
+      <li class="hover:text-black cursor-pointer"><a href="{% url 'auth' %}?next={{ request.path }}">How It Works</a></li>
+      {% endif %}
+      <li class="hover:text-black cursor-pointer"><a href="{% url 'about_us' %}">About Us</a></li>
+    </ul>
+    <div class="flex gap-4 ml-6 items-center">
+      {% if user.is_authenticated %}
+        <div class="relative">
+          <button class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold" onclick="toggleDropdown()">
+            {{ user.first_name|slice:":1"|upper }}
+          </button>
+          <div id="user-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20 hidden">
+            <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+          </div>
+        </div>
+      {% else %}
+        <a href="{% url 'auth' %}" class="text-sm border border-slate-500 py-3 px-8 inline-flex items-center justify-center">Sign In</a>
+        <a href="{% url 'auth' %}#signup" class="text-sm bg-blue-600 px-8 py-3 text-white inline-flex items-center justify-center">Sign Up</a>
+      {% endif %}
+    </div>
+    
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       HERO HEADER
+  ══════════════════════════════════════ -->
+  <section class="hero-bg grid-texture relative overflow-hidden pt-20 pb-24 mt-6">
+    <!-- Decorative blobs -->
+    <div class="absolute -top-10 -right-10 w-80 h-80 bg-blue-100 rounded-full blur-[80px] opacity-60 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-1/4 w-60 h-60 bg-indigo-100 rounded-full blur-[80px] opacity-40 pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <!-- eyebrow -->
+      <div class="reveal reveal-1 inline-flex items-center gap-2.5 px-4 py-1.5 bg-white border border-blue-100 rounded-full mb-6 shadow-sm">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+        </span>
+        <span class="text-[10px] font-black text-blue-700 uppercase tracking-[0.2em]">Meet the Team</span>
+      </div>
+
+      <h1 class="reveal reveal-2 text-5xl lg:text-7xl font-black text-slate-900 leading-[1.05] mb-6 tracking-tight">
+        Built with <span class="text-blue-600 italic">Purpose.</span><br/>
+        Driven by <span class="text-orange-600 italic">People.</span>
+      </h1>
+
+      <p class="reveal reveal-3 text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+        We are dedicated to delivering innovative solutions that transform ideas into reality. 
+        Our mission is to create meaningful impact through technology and collaborative teamwork.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       MISSION PILLARS
+  ══════════════════════════════════════ -->
+
+  <section class="max-w-5xl mx-auto px-6 py-20">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+      <!-- Innovation -->
+      <div class="pillar bg-blue-600 border border-slate-100 rounded-2xl p-7 shadow-sm ">
+        <div class="w-12 h-12 bg-blue-700 rounded-xl flex items-center justify-center mb-5 shadow-md">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">Innovation First</h3>
+        <p class="text-sm text-white leading-relaxed">Cutting-edge technologies solving real-world problems while maintaining simplicity and accessibility.</p>
+      </div>
+
+      <!-- Collaboration -->
+      <div class="pillar bg-orange-700 rounded-2xl p-7 shadow-sm">
+        <div class="w-12 h-12  bg-orange-800 rounded-xl flex items-center justify-center mb-5">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold mb-2 text-white">Team Collaboration</h3>
+        <p class="text-sm text-white leading-relaxed">A diverse team united by one goal — making Microsoft Office learning effortless for everyone.</p>
+      </div>
+
+      <!-- Impact -->
+      <div class="pillar bg-green-700 border border-slate-100 rounded-2xl p-7 shadow-sm">
+        <div class="w-12 h-12 bg-emerald-800 rounded-xl flex items-center justify-center mb-5 shadow-md">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">Real Impact</h3>
+        <p class="text-sm text-white leading-relaxed">From zero to pro — our learners gain job-ready skills through hands-on labs and structured modules.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       TEAM SECTION
+  ══════════════════════════════════════ -->
+  <section class="max-w-5xl mx-auto px-6 pb-28">
+
+    <div class="text-center mb-14">
+      <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.25em] mb-3">The Humans Behind It</p>
+      <h2 class="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">Our Team</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+      <!-- ── WORD (Blue) ── -->
+      <div class="team-card relative bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100 cursor-pointer">
+        <!-- Colored header band -->
+        <div class="h-44 relative overflow-hidden"
+             style="background: linear-gradient(135deg, #2b579a 0%, #1e3a8a 100%);">
+          <!-- subtle dot pattern -->
+          <div class="absolute inset-0 opacity-10"
+               style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 18px 18px;"></div>
+          <!-- App icon badge -->
+          <div class="app-icon absolute top-5 left-5 w-11 h-11 bg-white rounded-xl shadow-lg flex items-center justify-center">
+            <span class="text-[#2b579a] font-black text-xl leading-none">W</span>
+          </div>
+          <!-- big faded letter bg -->
+          <span class="absolute -bottom-4 -right-2 text-[120px] font-black text-white/10 leading-none select-none">W</span>
+        </div>
+        <div class="p-6 relative">
+          <div class="card-stripe rounded-full" style="background:#2b579a;"></div>
+          <h3 class="text-xl font-bold text-slate-900 mb-1">Member Name</h3>
+          <p class="text-sm font-semibold mb-3" style="color:#2b579a;">Role — Word Module</p>
+          <p class="text-sm text-slate-500 leading-relaxed">Member description goes here. They bring expertise in document design and content architecture.</p>
+          <div class="mt-5 flex gap-2">
+            <span class="px-3 py-1 text-xs font-bold rounded-full text-white" style="background:#2b579a;">Word</span>
+            <span class="px-3 py-1 text-xs font-bold rounded-full bg-slate-100 text-slate-600">Documentation</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── POWERPOINT (Orange) ── -->
+      <div class="team-card relative bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100 cursor-pointer">
+        <div class="h-44 relative overflow-hidden"
+             style="background: linear-gradient(135deg, #c43e1c 0%, #a83318 100%);">
+          <div class="absolute inset-0 opacity-10"
+               style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 18px 18px;"></div>
+          <div class="app-icon absolute top-5 left-5 w-11 h-11 bg-white rounded-xl shadow-lg flex items-center justify-center">
+            <span class="font-black text-xl leading-none" style="color:#c43e1c;">P</span>
+          </div>
+          <span class="absolute -bottom-4 -right-2 text-[120px] font-black text-white/10 leading-none select-none">P</span>
+        </div>
+        <div class="p-6 relative">
+          <div class="card-stripe rounded-full" style="background:#c43e1c;"></div>
+          <h3 class="text-xl font-bold text-slate-900 mb-1">Member Name</h3>
+          <p class="text-sm font-semibold mb-3" style="color:#c43e1c;">Role — PowerPoint Module</p>
+          <p class="text-sm text-slate-500 leading-relaxed">Member description goes here. They specialise in visual storytelling and presentation design systems.</p>
+          <div class="mt-5 flex gap-2">
+            <span class="px-3 py-1 text-xs font-bold rounded-full text-white" style="background:#c43e1c;">PowerPoint</span>
+            <span class="px-3 py-1 text-xs font-bold rounded-full bg-slate-100 text-slate-600">Design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── EXCEL (Green) ── -->
+      <div class="team-card relative bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100 cursor-pointer">
+        <div class="h-44 relative overflow-hidden"
+             style="background: linear-gradient(135deg, #217346 0%, #185c37 100%);">
+          <div class="absolute inset-0 opacity-10"
+               style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 18px 18px;"></div>
+          <div class="app-icon absolute top-5 left-5 w-11 h-11 bg-white rounded-xl shadow-lg flex items-center justify-center">
+            <span class="font-black text-xl leading-none" style="color:#217346;">X</span>
+          </div>
+          <span class="absolute -bottom-4 -right-2 text-[120px] font-black text-white/10 leading-none select-none">X</span>
+        </div>
+        <div class="p-6 relative">
+          <div class="card-stripe rounded-full" style="background:#217346;"></div>
+          <h3 class="text-xl font-bold text-slate-900 mb-1">Member Name</h3>
+          <p class="text-sm font-semibold mb-3" style="color:#217346;">Role — Excel Module</p>
+          <p class="text-sm text-slate-500 leading-relaxed">Member description goes here. They craft data-driven exercises and formula-based lab challenges.</p>
+          <div class="mt-5 flex gap-2">
+            <span class="px-3 py-1 text-xs font-bold rounded-full text-white" style="background:#217346;">Excel</span>
+            <span class="px-3 py-1 text-xs font-bold rounded-full bg-slate-100 text-slate-600">Data</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ONENOTE (Purple) ── -->
+      <div class="team-card relative bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100 cursor-pointer">
+        <div class="h-44 relative overflow-hidden"
+             style="background: linear-gradient(135deg, #7719aa 0%, #5c1282 100%);">
+          <div class="absolute inset-0 opacity-10"
+               style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 18px 18px;"></div>
+          <div class="app-icon absolute top-5 left-5 w-11 h-11 bg-white rounded-xl shadow-lg flex items-center justify-center">
+            <span class="font-black text-xl leading-none" style="color:#7719aa;">N</span>
+          </div>
+          <span class="absolute -bottom-4 -right-2 text-[120px] font-black text-white/10 leading-none select-none">N</span>
+        </div>
+        <div class="p-6 relative">
+          <div class="card-stripe rounded-full" style="background:#7719aa;"></div>
+          <h3 class="text-xl font-bold text-slate-900 mb-1">Member Name</h3>
+          <p class="text-sm font-semibold mb-3" style="color:#7719aa;">Role — OneNote Module</p>
+          <p class="text-sm text-slate-500 leading-relaxed">Member description goes here. They build structured note-taking workflows and knowledge management labs.</p>
+          <div class="mt-5 flex gap-2">
+            <span class="px-3 py-1 text-xs font-bold rounded-full text-white" style="background:#7719aa;">OneNote</span>
+            <span class="px-3 py-1 text-xs font-bold rounded-full bg-slate-100 text-slate-600">Notes</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER  (matches home.html)
+  ══════════════════════════════════════ -->
+  <footer class="bg-slate-50 border-t border-slate-200 pt-16 pb-10">
+    <div class="max-w-7xl mx-auto px-10">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div>
+          <div class="text-2xl font-black text-slate-900 mb-4">OfficeEase</div>
+          <p class="text-slate-500 text-sm leading-relaxed">Mastering Microsoft Office through interactive labs, real-world projects, and local language support.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-slate-900 mb-5 uppercase text-xs tracking-widest">Modules</h4>
+          <ul class="space-y-3 text-sm text-slate-500">
+            <li><a href="#" class="hover:text-blue-600 transition-colors">Microsoft Word</a></li>
+            <li><a href="#" class="hover:text-emerald-600 transition-colors">Microsoft Excel</a></li>
+            <li><a href="#" class="hover:text-orange-600 transition-colors">Microsoft PowerPoint</a></li>
+            <li><a href="#" class="hover:text-slate-900 transition-colors">Interactive IDE</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-slate-900 mb-5 uppercase text-xs tracking-widest">Resources</h4>
+          <ul class="space-y-3 text-sm text-slate-500">
+            <li><a href="#" class="hover:text-slate-900 transition-colors">Lab Documentation</a></li>
+            <li><a href="#" class="hover:text-slate-900 transition-colors">Workout Exercises</a></li>
+            <li><a href="#" class="hover:text-slate-900 transition-colors">Quiz Portal</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-slate-900 mb-5 uppercase text-xs tracking-widest">Support</h4>
+          <ul class="space-y-3 text-sm text-slate-500">
+            <li><a href="#" class="hover:text-slate-900 transition-colors">Help Center</a></li>
+            <li><a href="#" class="hover:text-slate-900 transition-colors">Terms of Service</a></li>
+            <li><a href="#" class="hover:text-slate-900 transition-colors">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-bold text-slate-400 uppercase tracking-tighter">
+        <p>© 2026 OfficeEase Learning Platform. All rights reserved.</p>
+        <div class="flex gap-6">
+          <span>Designed with Local Support</span>
+          <span>Built for Professionals</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

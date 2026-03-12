@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OfficeEase</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="{% static 'app/style.css' %}">
+  <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
 </head>
 
 <body class="container bg-white text-black pt-1">
@@ -16,6 +16,7 @@
     <div class="text-3xl font-semibold">OfficeEase</div>
     <ul class="md:flex gap-8 text-sm">
       <li class="hover:text-black cursor-pointer"><a href="{% url 'home' %}">Home</a></li>
+      
       {% if user.is_authenticated %}
       <li class="hover:text-black cursor-pointer"><a href="#">Courses</a></li>
       <li class="hover:text-black cursor-pointer"><a href="#">How It Works</a></li>
@@ -23,7 +24,7 @@
       <li class="hover:text-black cursor-pointer"><a href="{% url 'auth' %}?next={{ request.path }}">Courses</a></li>
       <li class="hover:text-black cursor-pointer"><a href="{% url 'auth' %}?next={{ request.path }}">How It Works</a></li>
       {% endif %}
-      <li class="hover:text-black cursor-pointer"><a href="#">Contact Us</a></li>
+      <li class="hover:text-black cursor-pointer"><a href="{% url 'about_us' %}">About Us</a></li>
     </ul>
     <div class="flex gap-4 ml-6 items-center">
       {% if user.is_authenticated %}
@@ -75,7 +76,7 @@
           </div>
           <div
             class="relative bg-white border border-slate-200 p-3 rounded-2xl shadow-2xl transition-all duration-500 group-hover:-translate-y-7">
-            <img src="{% static 'app/Hero_img.png' %}" alt="Learning" class="rounded-xl w-full h-[380px] object-cover">
+            <img src="{% static 'accounts/Hero_img.png' %}" alt="Learning" class="rounded-xl w-full h-[380px] object-cover">
             <div
               class="absolute -bottom-6 -left-6 bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-2xl border border-blue-50 w-[420px] max-w-[100%] animate-slide-in animate-glow transition-transform group-hover:translate-x-2">
               <div class="flex items-center gap-2 mb-3">
@@ -107,7 +108,7 @@
 
       <div class="text-center">
         <p class="text-3xl font-black text-slate-900 flex items-center justify-center">
-          <span class="counter" data-target="1500">0</span>+
+          <span class="counter" data-target="{{ user_count }}">0</span>+
         </p>
         <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-2">Active Learners</p>
       </div>
@@ -186,7 +187,7 @@
               Resume Design</span>
           </div>
           {% if user.is_authenticated %}
-          <a href="{% url '#' %}">
+          <a href="#">
             <button  class="px-12 py-5 rounded-2xl font-black text-xl text-[#2b579a] bg-white 
             border-2 border-transparent transition-all duration-300 ease-in-out
             hover:bg-blue-600 hover:text-white hover:shadow-[0_15px_30px_rgba(37,99,235,0.3)]">
@@ -488,7 +489,7 @@
     </div>
   </div>
 </footer>
-  <script src="{% static 'app/home.js' %}"></script>
+  <script src="{% static 'accounts/home.js' %}"></script>
   {% if not user.is_authenticated %}
   <script>
     document.addEventListener('DOMContentLoaded', () => {

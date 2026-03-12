@@ -11,7 +11,18 @@ User = get_user_model()
 
 
 def home(request):
-    return render(request, "app/home.html")
+    user_count = User.objects.count()
+    context = {
+        'user_count': user_count
+    }
+    # template lives under accounts/templates/accounts/home.html
+    return render(request, "accounts/home.html", context)
+
+
+def about_us(request):
+    """Render the About Us page."""
+    # the template lives under the accounts app's templates folder
+    return render(request, "accounts/AboutUs.html")
 
 
 def auth(request):
@@ -81,7 +92,7 @@ def auth(request):
         'next': next_url,
         'show_signup': show_signup,
     }
-    return render(request, 'app/auth.html', context)
+    return render(request, 'accounts/auth.html', context)
 
 
 def check_email(request):
