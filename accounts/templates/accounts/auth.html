@@ -1,53 +1,44 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{% block title %}Authentication{% endblock %}</title>
 
-  <!-- Tailwind CSS CDN (full JIT) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['DM Sans', 'sans-serif'],
-            display: ['Cormorant Garamond', 'serif'],
-          },
-          colors: {
-            brand: {
-              50:  '#eef2ff',
-              100: '#dce6f7',
-              500: '#3d6ff0',
-              600: '#1a4fd6',
-              700: '#1240b8',
-              800: '#0e328f',
-            }
-          },
-          keyframes: {
-            fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } }
-          },
-          animation: {
-            'fade-in': 'fadeIn 0.3s ease forwards',
+{% block title %}Authentication{% endblock %}
+
+{% block extra_head %}
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['DM Sans', 'sans-serif'],
+          display: ['Cormorant Garamond', 'serif'],
+        },
+        colors: {
+          brand: {
+            50:  '#eef2ff',
+            100: '#dce6f7',
+            500: '#3d6ff0',
+            600: '#1a4fd6',
+            700: '#1240b8',
+            800: '#0e328f',
           }
+        },
+        keyframes: {
+          fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } }
+        },
+        animation: {
+          'fade-in': 'fadeIn 0.3s ease forwards',
         }
       }
     }
-  </script>
+  }
+</script>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet"/>
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+  /* Sliding mechanism — cannot be expressed purely in Tailwind utility classes */
+  :root { --ease-slide: cubic-bezier(0.77, 0, 0.175, 1); }
 
-  <style>
-    /* Sliding mechanism — cannot be expressed purely in Tailwind utility classes */
-    :root { --ease-slide: cubic-bezier(0.77, 0, 0.175, 1); }
-
-    /* Forms wrapper: 2× box width; default shifted to show login (right panel) */
-    #forms-wrapper {
+  /* Forms wrapper: 2× box width; default shifted to show login (right panel) */
+  #forms-wrapper {
       width: 1720px;
       transform: translateX(-860px);
       transition: transform 0.7s var(--ease-slide);
@@ -86,7 +77,9 @@
   </style>
 </head>
 
-<body class="min-h-screen flex items-center justify-center bg-brand-100 font-sans">
+{% block body_class %}min-h-screen flex items-center justify-center bg-brand-100 font-sans{% endblock %}
+
+{% block content %}
 
   <!-- ═══════════════════════════════════════════
        OUTER BOX  (860 × 520)
@@ -412,6 +405,77 @@
     // Auto-switch if URL hash is #signup
     if (window.location.hash === '#signup') switchTo('signup');
   </script>
+{% endblock %}
 
-</body>
-</html>
+{% block extra_scripts %}
+<script>
+  function switchTo(mode) {
+    document.getElementById('auth-box').classList.toggle('signup-mode', mode === 'signup');
+  }
+
+  // Password validation
+  document.addEventListener('DOMContentLoaded', () => {
+    const passwordInput = document.querySelector('input[name="password1"]');
+    const confirmPasswordInput = document.querySelector('input[name="password2"]');
+    const emailInput = document.getElementById('signup-email');
+    const submitBtn = document.getElementById('signup-btn');
+
+    if (passwordInput) {
+      passwordInput.addEventListener('focus', () => {
+        document.getElementById('password-conditions').classList.remove('hidden');
+      });
+      passwordInput.addEventListener('input', validatePassword);
+    }
+    if (confirmPasswordInput) {
+      confirmPasswordInput.addEventListener('blur', () => {
+        const p1 = passwordInput.value;
+        const p2 = confirmPasswordInput.value;
+        if (p1 !== p2) {
+          confirmPasswordInput.value = '';
+          document.getElementById('password-match-error').classList.remove('hidden');
+        } else {
+          document.getElementById('password-match-error').classList.add('hidden');
+        }
+      });
+      confirmPasswordInput.addEventListener('input', () => {
+        document.getElementById('password-match-error').classList.add('hidden');
+      });
+    }
+    if (emailInput) {
+      emailInput.addEventListener('input', () => {
+        const err = document.getElementById('email-error');
+        err.classList.add('hidden');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.classList.remove('cursor-not-allowed');
+        }
+      });
+    }
+  });
+
+  function validatePassword() {
+    const password = this.value;
+    const conditions = {
+      length: password.length >= 8,
+      letter: /[a-zA-Z]/.test(password),
+      number: /\d/.test(password),
+      special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
+    };
+    Object.keys(conditions).forEach(key => {
+      const element = document.getElementById(key);
+      if (element) {
+        element.classList.toggle('text-green-600', conditions[key]);
+        element.classList.toggle('text-red-500', !conditions[key]);
+      }
+    });
+  }
+
+  // Auto-switch to signup panel if Django redirects back with register errors
+  {% if show_signup %}
+    document.addEventListener('DOMContentLoaded', () => switchTo('signup'));
+  {% endif %}
+
+  // Auto-switch if URL hash is #signup
+  if (window.location.hash === '#signup') switchTo('signup');
+</script>
+{% endblock %}

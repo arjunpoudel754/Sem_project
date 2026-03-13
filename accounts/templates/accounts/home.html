@@ -1,48 +1,13 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OfficeEase</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="{% static 'accounts/style.css' %}">
-</head>
+{% block title %}Home — OfficeEase{% endblock %}
 
-<body class="container bg-white text-black pt-1">
-  <!-- nab bar -->
-  <nav class="max-w-7xl mx-auto flex items-center justify-between bg-blue-50 px-10 py-3 rounded-2xl">
-    <div class="text-3xl font-semibold">OfficeEase</div>
-    <ul class="md:flex gap-8 text-sm">
-      <li class="hover:text-black cursor-pointer"><a href="{% url 'home' %}">Home</a></li>
-      
-      {% if user.is_authenticated %}
-      <li class="hover:text-black cursor-pointer"><a href="#">Courses</a></li>
-      <li class="hover:text-black cursor-pointer"><a href="#">How It Works</a></li>
-      {% else %}
-      <li class="hover:text-black cursor-pointer"><a href="{% url 'auth' %}?next={{ request.path }}">Courses</a></li>
-      <li class="hover:text-black cursor-pointer"><a href="{% url 'auth' %}?next={{ request.path }}">How It Works</a></li>
-      {% endif %}
-      <li class="hover:text-black cursor-pointer"><a href="{% url 'about_us' %}">About Us</a></li>
-    </ul>
-    <div class="flex gap-4 ml-6 items-center">
-      {% if user.is_authenticated %}
-        <div class="relative">
-          <button class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold" onclick="toggleDropdown()">
-            {{ user.first_name|slice:":1"|upper }}
-          </button>
-          <div id="user-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20 hidden">
-            <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
-          </div>
-        </div>
-      {% else %}
-        <a href="{% url 'auth' %}" class="text-sm border border-slate-500 py-3 px-8 inline-flex items-center justify-center">Sign In</a>
-        <a href="{% url 'auth' %}#signup" class="text-sm bg-blue-600 px-8 py-3 text-white inline-flex items-center justify-center">Sign Up</a>
-      {% endif %}
-    </div>
-    
-  </nav>
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'accounts/style.css' %}">
+{% endblock %}
+
+{% block content %}
   <!-- hero section -->
   <section class="max-w-7xl mx-auto mt-10 px-10 min-h-[85vh] flex items-center overflow-visible pb-20">
     <div class="flex flex-col lg:flex-row items-center gap-16 w-full">
@@ -195,7 +160,7 @@
           </a>
           </button>
           {% else %}
-          <a href="{% url 'auth' %}">
+          <a href="{% url 'auth' %}?next={{ request.path }}">
             <button class="px-12 py-5 rounded-2xl font-black text-xl text-[#2b579a] bg-white 
             border-2 border-transparent transition-all duration-300 ease-in-out
             hover:bg-blue-600 hover:text-white hover:shadow-[0_15px_30px_rgba(37,99,235,0.3)]">
@@ -425,90 +390,22 @@
       </div>
     </div>
   </section>
+{% endblock %}
 
-  <!-- footer  -->
-   <footer class="bg-slate-50 border-t border-slate-200 pt-20 pb-10">
-  <div class="max-w-7xl mx-auto px-10">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-      
-      <div class="col-span-1 md:col-span-1">
-        <div class="text-2xl font-black text-slate-900 mb-6">OfficeEase</div>
-        <p class="text-slate-500 text-sm leading-relaxed mb-6">
-          Mastering Microsoft Office through interactive labs, real-world projects, and local language support.
-        </p>
-      </div>
-
-      <div>
-        <h4 class="font-bold text-slate-900 mb-6 uppercase text-xs tracking-widest">Modules</h4>
-        <ul class="space-y-4 text-sm text-slate-500">
-          {% if user.is_authenticated %}
-          <li><a href="#" class="hover:text-blue-600 transition-colors">Microsoft Word</a></li>
-          <li><a href="#" class="hover:text-emerald-600 transition-colors">Microsoft Excel</a></li>
-          <li><a href="#" class="hover:text-orange-600 transition-colors">Microsoft PowerPoint</a></li>
-          <li><a href="#" class="hover:text-slate-900 transition-colors">Interactive IDE</a></li>
-          {% else %}
-          <li><a href="{% url 'auth' %}?next={{ request.path }}" class="hover:text-blue-600 transition-colors">Microsoft Word</a></li>
-          <li><a href="{% url 'auth' %}?next={{ request.path }}" class="hover:text-emerald-600 transition-colors">Microsoft Excel</a></li>
-          <li><a href="{% url 'auth' %}?next={{ request.path }}" class="hover:text-orange-600 transition-colors">Microsoft PowerPoint</a></li>
-          <li><a href="{% url 'auth' %}?next={{ request.path }}" class="hover:text-slate-900 transition-colors">Interactive IDE</a></li>
-          {% endif %}
-        </ul>
-      </div>
-
-      <div>
-        <h4 class="font-bold text-slate-900 mb-6 uppercase text-xs tracking-widest">Resources</h4>
-        <ul class="space-y-4 text-sm text-slate-500">
-          <li><a href="#" class="hover:text-slate-900 transition-colors">Lab Documentation</a></li>
-          <li><a href="#" class="hover:text-slate-900 transition-colors">Workout Exercises</a></li>
-          <li><a href="#" class="hover:text-slate-900 transition-colors">Quiz Portal</a></li>
-          <li><a href="#" class="hover:text-slate-900 transition-colors">Community Forum</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 class="font-bold text-slate-900 mb-6 uppercase text-xs tracking-widest">Support</h4>
-        <ul class="space-y-4 text-sm text-slate-500">
-          <li><a href="#" class="hover:text-slate-900 transition-colors">Help Center</a></li>
-          <li><a href="#" class="hover:text-slate-900 transition-colors">Terms of Service</a></li>
-          <li><a href="#" class="hover:text-slate-900 transition-colors">Privacy Policy</a></li>
-          <li class="pt-2">
-            <span class="block text-xs font-bold text-slate-400 mb-1">Contact us:</span>
-            <a href="mailto:hello@office-ease.com" class="text-slate-900 font-bold">hello@office-ease.com</a>
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="pt-8 border-t border-slate-200 flex flex-col md:row justify-between items-center gap-4 text-xs font-bold text-slate-400 uppercase tracking-tighter">
-      <p>© 2026 OfficeEase Learning Platform. All rights reserved.</p>
-      <div class="flex gap-6">
-        <span>Designed with Local Support</span>
-        <span>Built for Professionals</span>
-      </div>
-    </div>
-  </div>
-</footer>
-  <script src="{% static 'accounts/home.js' %}"></script>
-  {% if not user.is_authenticated %}
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const authUrl = "{% url 'auth' %}";
-      document.querySelectorAll(`a[href*="${authUrl}"]`).forEach(a => {
-        a.addEventListener('click', e => {
-          e.preventDefault();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          setTimeout(() => { window.location.href = a.href; }, 300);
-        });
+{% block extra_scripts %}
+<script src="{% static 'accounts/home.js' %}"></script>
+{% if not user.is_authenticated %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const authUrl = "{% url 'auth' %}";
+    document.querySelectorAll(`a[href*="${authUrl}"]`).forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        setTimeout(() => { window.location.href = a.href; }, 300);
       });
     });
-  </script>
-  {% endif %}
-</body>
-
-</html>
-
-
-
-
-<!-- C:\Users\User\OneDrive\Desktop\OfficeEase -->
+  });
+</script>
+{% endif %}
+{% endblock %}
