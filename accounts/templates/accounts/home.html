@@ -17,8 +17,33 @@
     <ul class="md:flex gap-8 text-sm">
       <li class="hover:text-black cursor-pointer"><a href="{% url 'home' %}">Home</a></li>
       
-      {% if user.is_authenticated %}
-      <li class="hover:text-black cursor-pointer"><a href="#">Courses</a></li>
+<li class="relative group cursor-pointer">
+    <div class="flex items-center gap-1 hover:text-black transition-colors">
+        <a href="#">Courses</a>
+        <i class="fa-solid fa-chevron-down text-[10px] opacity-50 group-hover:rotate-180 transition-transform"></i>
+    </div>
+
+    <ul class="absolute left-0 mt-2 w-48 bg-white border border-slate-100 rounded-xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-[100] p-2">
+        <li>
+            <a href="{% url 'word_course' %}" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-blue-50 hover:text-blue-600 rounded-lg transition-all">
+                <i class="fa-solid fa-file-word text-blue-500"></i>
+                <span class="font-medium">Microsoft Word</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-emerald-50 hover:text-emerald-600 rounded-lg transition-all">
+                <i class="fa-solid fa-file-excel text-emerald-500"></i>
+                <span class="font-medium">Microsoft Excel</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-orange-50 hover:text-orange-600 rounded-lg transition-all">
+                <i class="fa-solid fa-file-powerpoint text-orange-500"></i>
+                <span class="font-medium">Microsoft PowerPoint</span>
+            </a>
+        </li>
+    </ul>
+</li>      {% if user.is_authenticated %}
       <li class="hover:text-black cursor-pointer"><a href="#">How It Works</a></li>
       {% else %}
       <li class="hover:text-black cursor-pointer"><a href="{% url 'auth' %}?next={{ request.path }}">Courses</a></li>

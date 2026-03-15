@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 
 from .forms import RegisterForm, LoginForm
 from .models import Profile
+from .models import Lesson 
 
 
 User = get_user_model()
@@ -108,3 +109,8 @@ def logout_view(request):
     logout(request)
     # messages.info(request, 'You have been signed out.')
     return redirect('home')
+
+def word_course(request):
+    # Fetch all lessons from the database to show in the sidebar
+    lessons = Lesson.objects.all().order_by('order')
+    return render(request, 'accounts/word.html', {'lessons': lessons})
