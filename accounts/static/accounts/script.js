@@ -1,6 +1,3 @@
-/* =============================================
-   Microsoft Word Help & Learning – script.js
-   ============================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -110,3 +107,20 @@ document.addEventListener('DOMContentLoaded', () => {
   document.head.appendChild(style);
 
 });
+
+async function loadLanguage(lang) {
+
+    const response = await fetch(`languages/${lang}.json`);
+    const data = await response.json();
+
+    document.querySelectorAll("[data-key]").forEach(element => {
+        const key = element.getAttribute("data-key");
+        element.textContent = data[key];
+    });
+}
+
+document.getElementById("language").addEventListener("change", (e) => {
+    loadLanguage(e.target.value);
+});
+
+loadLanguage("en");

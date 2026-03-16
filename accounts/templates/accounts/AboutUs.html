@@ -88,11 +88,11 @@
       </div>
 
       <h1 class="reveal reveal-2 text-5xl lg:text-7xl font-black text-slate-900 leading-[1.05] mb-6 tracking-tight">
-        Built with <span class="text-blue-600 italic">Purpose.</span><br/>
-        Driven by <span class="text-orange-600 italic">People.</span>
+        Built with <span class="text-blue-600 italic about-text" data-en="Purpose." data-fr="intention.">Purpose.</span><br/>
+        Driven by <span class="text-orange-600 italic about-text" data-en="People." data-fr="Personnes.">People.</span>
       </h1>
 
-      <p class="reveal reveal-3 text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+      <p class="reveal reveal-3 text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed about-text" data-en="We are dedicated to delivering innovative solutions that transform ideas into reality. Our mission is to create meaningful impact through technology and collaborative teamwork." data-fr="Nous nous engageons à fournir des solutions innovantes qui transforment les idées en réalité. Notre mission est de créer un impact significatif grâce à la technologie et au travail d'équipe collaboratif.">
         We are dedicated to delivering innovative solutions that transform ideas into reality. 
         Our mission is to create meaningful impact through technology and collaborative teamwork.
       </p>
@@ -235,5 +235,25 @@
     </div>
   </section>
 
+{% endblock %}
 
+{% block extra_scripts %}
+<script>
+  // Handle language switching for about page
+  window.addEventListener('languageChanged', (e) => {
+    const lang = e.detail.language;
+    document.querySelectorAll('.about-text[data-en][data-fr]').forEach(element => {
+      const text = element.getAttribute(`data-${lang}`);
+      if (text) {
+        element.textContent = text;
+      }
+    });
+  });
+
+  // Initialize language on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentLang = localStorage.getItem('language') || 'en';
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: currentLang } }));
+  });
+</script>
 {% endblock %}

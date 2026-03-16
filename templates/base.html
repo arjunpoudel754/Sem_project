@@ -16,30 +16,34 @@
     <nav class="max-w-7xl mx-auto flex items-center justify-between bg-blue-50 px-10 py-3 rounded-2xl">
         <div class="text-3xl font-semibold">OfficeEase</div>
         <ul class="md:flex gap-8 text-sm">
-          <li class="hover:text-black cursor-pointer"><a href="{% url 'home' %}">Home</a></li>
+          <li class="hover:text-black cursor-pointer"><a href="{% url 'home' %}" class="nav-text" data-en="Home" data-fr="Accueil">Home</a></li>
           
           {% if user.is_authenticated %}
-          <li class="hover:text-black cursor-pointer"><a href="#">Courses</a></li>
-          <li class="hover:text-black cursor-pointer"><a href="#">How It Works</a></li>
+          <li class="hover:text-black cursor-pointer"><a href="#" class="nav-text" data-en="Courses" data-fr="Cours">Courses</a></li>
+          <li class="hover:text-black cursor-pointer"><a href="#" class="nav-text" data-en="How It Works" data-fr="Comment ça marche">How It Works</a></li>
           {% else %}
-          <li class="hover:text-black cursor-pointer"><a href="{% url 'auth' %}?next={{ request.path }}">Courses</a></li>
-          <li class="hover:text-black cursor-pointer"><a href="{% url 'auth' %}?next={{ request.path }}">How It Works</a></li>
+          <li class="hover:text-black cursor-pointer"><a href="{% url 'auth' %}?next={{ request.path }}" class="nav-text" data-en="Courses" data-fr="Cours">Courses</a></li>
+          <li class="hover:text-black cursor-pointer"><a href="{% url 'auth' %}?next={{ request.path }}" class="nav-text" data-en="How It Works" data-fr="Comment ça marche">How It Works</a></li>
           {% endif %}
-          <li class="hover:text-black cursor-pointer"><a href="{% url 'about_us' %}">About Us</a></li>
+          <li class="hover:text-black cursor-pointer"><a href="{% url 'about_us' %}" class="nav-text" data-en="About Us" data-fr="À propos de nous">About Us</a></li>
         </ul>
         <div class="flex gap-4 ml-6 items-center">
+          <div class="flex gap-2 items-center border-l border-slate-300 pl-4">
+            <button onclick="setLanguage('en')" id="lang-en" class="text-xs font-semibold px-2 py-1 rounded bg-blue-600 text-white">EN</button>
+            <button onclick="setLanguage('fr')" id="lang-fr" class="text-xs font-semibold px-2 py-1 rounded text-slate-600 hover:bg-slate-100">FR</button>
+          </div>
           {% if user.is_authenticated %}
             <div class="relative">
               <button class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold" onclick="toggleDropdown()">
                 {{ user.first_name|slice:":1"|upper }}
               </button>
               <div id="user-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20 hidden">
-                <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 nav-text" data-en="Logout" data-fr="Déconnexion">Logout</a>
               </div>
             </div>
           {% else %}
-            <a href="{% url 'auth' %}" class="text-sm border border-slate-500 py-3 px-8 inline-flex items-center justify-center">Sign In</a>
-            <a href="{% url 'auth' %}#signup" class="text-sm bg-blue-600 px-8 py-3 text-white inline-flex items-center justify-center">Sign Up</a>
+            <a href="{% url 'auth' %}" class="text-sm border border-slate-500 py-3 px-8 inline-flex items-center justify-center nav-text" data-en="Sign In" data-fr="Se connecter">Sign In</a>
+            <a href="{% url 'auth' %}#signup" class="text-sm bg-blue-600 px-8 py-3 text-white inline-flex items-center justify-center nav-text" data-en="Sign Up" data-fr="S'inscrire">Sign Up</a>
           {% endif %}
         </div>
     </nav>
@@ -51,7 +55,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div>
             <h3 class="text-2xl font-bold mb-6">OfficeEase</h3>
-            <p class="text-slate-300 mb-6">Empowering professionals with Microsoft Office mastery through interactive learning and practical exercises.</p>
+            <p class="text-slate-300 mb-6 footer-text" data-en="Empowering professionals with Microsoft Office mastery through interactive learning and practical exercises." data-fr="Habiliter les professionnels à maîtriser Microsoft Office grâce à l'apprentissage interactif et aux exercices pratiques.">Empowering professionals with Microsoft Office mastery through interactive learning and practical exercises.</p>
             <div class="flex gap-4">
               <a href="#" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors">
                 <i class="fab fa-facebook-f"></i>
@@ -66,38 +70,38 @@
           </div>
 
           <div>
-            <h4 class="font-bold text-white mb-6 uppercase text-xs tracking-widest">Courses</h4>
+            <h4 class="font-bold text-white mb-6 uppercase text-xs tracking-widest footer-text" data-en="Courses" data-fr="Cours">Courses</h4>
             <ul class="space-y-4 text-sm text-slate-300">
               {% if user.is_authenticated %}
               <li><a href="#" class="hover:text-blue-400 transition-colors">Microsoft Word</a></li>
               <li><a href="#" class="hover:text-emerald-400 transition-colors">Microsoft Excel</a></li>
               <li><a href="#" class="hover:text-orange-400 transition-colors">Microsoft PowerPoint</a></li>
-              <li><a href="#" class="hover:text-slate-400 transition-colors">Interactive IDE</a></li>
+              <li><a href="#" class="hover:text-slate-400 transition-colors footer-text" data-en="Interactive IDE" data-fr="IDE interactif">Interactive IDE</a></li>
               {% else %}
-              <li><a href="{% url 'auth' %}?next={{ request.path }}" class="hover:text-blue-400 transition-colors">Microsoft Word</a></li>
+              <li><a href="{% url 'auth' %}" class="hover:text-blue-400 transition-colors">Microsoft Word</a></li>
               <li><a href="{% url 'auth' %}?next={{ request.path }}" class="hover:text-emerald-400 transition-colors">Microsoft Excel</a></li>
               <li><a href="{% url 'auth' %}?next={{ request.path }}" class="hover:text-orange-400 transition-colors">Microsoft PowerPoint</a></li>
-              <li><a href="{% url 'auth' %}?next={{ request.path }}" class="hover:text-slate-400 transition-colors">Interactive IDE</a></li>
+              <li><a href="{% url 'auth' %}?next={{ request.path }}" class="hover:text-slate-400 transition-colors footer-text" data-en="Interactive IDE" data-fr="IDE interactif">Interactive IDE</a></li>
               {% endif %}
             </ul>
           </div>
 
           <div>
-            <h4 class="font-bold text-white mb-6 uppercase text-xs tracking-widest">Resources</h4>
+            <h4 class="font-bold text-white mb-6 uppercase text-xs tracking-widest footer-text" data-en="Resources" data-fr="Ressources">Resources</h4>
             <ul class="space-y-4 text-sm text-slate-300">
-              <li><a href="#" class="hover:text-white transition-colors">Lab Documentation</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Workout Exercises</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Quiz Portal</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Community Forum</a></li>
+              <li><a href="#" class="hover:text-white transition-colors footer-text" data-en="Lab Documentation" data-fr="Documentation des laboratoires">Lab Documentation</a></li>
+              <li><a href="#" class="hover:text-white transition-colors footer-text" data-en="Workout Exercises" data-fr="Exercices d'entraînement">Workout Exercises</a></li>
+              <li><a href="#" class="hover:text-white transition-colors footer-text" data-en="Quiz Portal" data-fr="Portail de quiz">Quiz Portal</a></li>
+              <li><a href="#" class="hover:text-white transition-colors footer-text" data-en="Community Forum" data-fr="Forum communautaire">Community Forum</a></li>
             </ul>
           </div>
 
           <div>
-            <h4 class="font-bold text-white mb-6 uppercase text-xs tracking-widest">Support</h4>
+            <h4 class="font-bold text-white mb-6 uppercase text-xs tracking-widest footer-text" data-en="Support" data-fr="Support">Support</h4>
             <ul class="space-y-4 text-sm text-slate-300">
-              <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
-              <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="#" class="hover:text-white transition-colors footer-text" data-en="Help Center" data-fr="Centre d'aide">Help Center</a></li>
+              <li><a href="#" class="hover:text-white transition-colors footer-text" data-en="Terms of Service" data-fr="Conditions d'utilisation">Terms of Service</a></li>
+              <li><a href="#" class="hover:text-white transition-colors footer-text" data-en="Privacy Policy" data-fr="Politique de confidentialité">Privacy Policy</a></li>
               <li class="pt-2">
                 <span class="block text-xs font-bold text-slate-400 mb-1">Contact us:</span>
                 <a href="mailto:hello@office-ease.com" class="text-white font-bold">hello@office-ease.com</a>
@@ -115,6 +119,63 @@
         </div>
       </div>
     </footer>
+
+    <script>
+        let currentLanguage = localStorage.getItem('language') || 'en';
+
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLanguage);
+        });
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+
+            // Update language buttons
+            const btnEn = document.getElementById('lang-en');
+            const btnFr = document.getElementById('lang-fr');
+            if (btnEn && btnFr) {
+                if (lang === 'en') {
+                    btnEn.classList.add('bg-blue-600', 'text-white');
+                    btnEn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+                    btnFr.classList.remove('bg-blue-600', 'text-white');
+                    btnFr.classList.add('text-slate-600', 'hover:bg-slate-100');
+                } else {
+                    btnFr.classList.add('bg-blue-600', 'text-white');
+                    btnFr.classList.remove('text-slate-600', 'hover:bg-slate-100');
+                    btnEn.classList.remove('bg-blue-600', 'text-white');
+                    btnEn.classList.add('text-slate-600', 'hover:bg-slate-100');
+                }
+            }
+
+            // Update all text elements with data attributes
+            document.querySelectorAll('[data-en][data-fr]').forEach(element => {
+                const text = element.getAttribute(`data-${lang}`);
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+
+            // Trigger custom event for page-specific translations
+            window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById('user-dropdown');
+            if (dropdown) {
+                dropdown.classList.toggle('hidden');
+            }
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const dropdown = document.getElementById('user-dropdown');
+            if (dropdown && !dropdown.parentElement.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
 
     {% block extra_scripts %}{% endblock %}
 </body>
