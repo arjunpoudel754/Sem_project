@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{% block title %}Authentication{% endblock %}</title>
+  <title data-translate="auth_title">Authentication</title>
 
   <!-- Tailwind CSS CDN (full JIT) -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -106,14 +106,14 @@
           {% csrf_token %}
           <input type="hidden" name="action" value="register"/>
 
-          <h1 class="font-display text-[30px] text-slate-900 mb-6 tracking-[-0.2px]">
+          <h1 class="font-display text-[30px] text-slate-900 mb-6 tracking-[-0.2px]" data-translate="auth_create_account">
             Create Account
           </h1>
 
           <!-- First & Last name row -->
           <div class="flex gap-[9px] mb-3">
             <div class="relative flex-1">
-              <input type="text" name="first_name" placeholder="First name" required
+              <input type="text" name="first_name" data-translate="auth_first_name" placeholder="First name" required
                      class="w-full py-[11.5px] pl-[38px] pr-3 border border-[#d5ddf0] rounded-[10px]
                             text-[13.5px] text-slate-900 bg-[#f4f7fd] outline-none
                             focus:border-brand-600 focus:bg-white focus:ring-[3px] focus:ring-brand-600/10
@@ -121,7 +121,7 @@
               <i class="fa-regular fa-user field-icon absolute left-3 top-1/2 -translate-y-1/2 text-[13px] text-slate-400 pointer-events-none transition-colors"></i>
             </div>
             <div class="relative flex-1">
-              <input type="text" name="last_name" placeholder="Last name" required
+              <input type="text" name="last_name" data-translate="auth_last_name" placeholder="Last name" required
                      class="w-full py-[11.5px] pl-[38px] pr-3 border border-[#d5ddf0] rounded-[10px]
                             text-[13.5px] text-slate-900 bg-[#f4f7fd] outline-none
                             focus:border-brand-600 focus:bg-white focus:ring-[3px] focus:ring-brand-600/10
@@ -132,19 +132,19 @@
 
           <!-- Email -->
           <div class="relative mb-3">
-            <input type="email" name="email" placeholder="Email address" required
+            <input type="email" name="email" data-translate="auth_email" placeholder="Email address" required
                    class="w-full py-[11.5px] pl-[38px] pr-3 border border-[#d5ddf0] rounded-[10px]
                           text-[13.5px] text-slate-900 bg-[#f4f7fd] outline-none
                           focus:border-brand-600 focus:bg-white focus:ring-[3px] focus:ring-brand-600/10
                           placeholder:text-slate-400 transition-all" id="signup-email"/>
             <i class="fa-regular fa-envelope field-icon absolute left-3 top-1/2 -translate-y-1/2 text-[13px] text-slate-400 pointer-events-none transition-colors"></i>
           </div>
-          <div id="email-error" class="hidden text-red-500 text-xs mb-2">Email already exists.</div>
+          <div id="email-error" class="hidden text-red-500 text-xs mb-2" data-translate="auth_email_exists">Email already exists.</div>
 
           <!-- Password & Confirm row -->
           <div class="flex gap-[9px] mb-3">
             <div class="relative flex-1">
-              <input type="password" name="password1" placeholder="Password" required
+              <input type="password" name="password1" data-translate="auth_password" placeholder="Password" required
                      class="w-full py-[11.5px] pl-[38px] pr-3 border border-[#d5ddf0] rounded-[10px]
                             text-[13.5px] text-slate-900 bg-[#f4f7fd] outline-none
                             focus:border-brand-600 focus:bg-white focus:ring-[3px] focus:ring-brand-600/10
@@ -152,7 +152,7 @@
               <i class="fa-solid fa-lock field-icon absolute left-3 top-1/2 -translate-y-1/2 text-[13px] text-slate-400 pointer-events-none transition-colors"></i>
             </div>
             <div class="relative flex-1">
-              <input type="password" name="password2" placeholder="Confirm" required
+              <input type="password" name="password2" data-translate="auth_confirm_password" placeholder="Confirm" required
                      class="w-full py-[11.5px] pl-[38px] pr-3 border border-[#d5ddf0] rounded-[10px]
                             text-[13.5px] text-slate-900 bg-[#f4f7fd] outline-none
                             focus:border-brand-600 focus:bg-white focus:ring-[3px] focus:ring-brand-600/10
@@ -163,14 +163,14 @@
 
           <!-- Password validation conditions -->
           <div id="password-conditions" class="hidden mb-3 space-y-1 text-xs">
-            <p id="length" class="text-red-500">At least 8 characters</p>
-            <p id="letter" class="text-red-500">At least one letter</p>
-            <p id="number" class="text-red-500">At least one number</p>
-            <p id="special" class="text-red-500">At least one special symbol</p>
+            <p id="length" class="text-red-500" data-translate="password_validation_length">At least 8 characters</p>
+            <p id="letter" class="text-red-500" data-translate="password_validation_letter">At least one letter</p>
+            <p id="number" class="text-red-500" data-translate="password_validation_number">At least one number</p>
+            <p id="special" class="text-red-500" data-translate="password_validation_special">At least one special symbol</p>
           </div>
 
           <!-- Password match error -->
-          <div id="password-match-error" class="hidden text-red-500 text-xs mb-2">Passwords do not match.</div>
+          <div id="password-match-error" class="hidden text-red-500 text-xs mb-2" data-translate="auth_passwords_not_match">Passwords do not match.</div>
 
           <!-- Django form errors -->
           {% if register_form.errors %}
@@ -183,7 +183,7 @@
                   class="w-full py-3 mt-1 mb-3 bg-gradient-to-br from-brand-700 to-brand-500
                          text-white rounded-[10px] text-[14.5px] font-semibold tracking-[0.2px]
                          hover:opacity-90 hover:-translate-y-px active:translate-y-0
-                         transition-all duration-150 cursor-pointer border-none">
+                         transition-all duration-150 cursor-pointer border-none" data-translate="auth_create_account">
             Create Account
           </button>
         </form>
@@ -200,13 +200,13 @@
             <input type="hidden" name="next" value="{{ next }}"/>
           {% endif %}
 
-          <h1 class="font-display text-[30px] text-slate-900 mb-6 tracking-[-0.2px]">
+          <h1 class="font-display text-[30px] text-slate-900 mb-6 tracking-[-0.2px]" data-translate="auth_welcome_back">
             Welcome Back
           </h1>
 
           <!-- Email / Username -->
           <div class="relative mb-3">
-            <input type="text" name="username" placeholder="Email or username" required
+            <input type="text" name="username" data-translate="auth_email_or_username" placeholder="Email or username" required
                    class="w-full py-[11.5px] pl-[38px] pr-3 border border-[#d5ddf0] rounded-[10px]
                           text-[13.5px] text-slate-900 bg-[#f4f7fd] outline-none
                           focus:border-brand-600 focus:bg-white focus:ring-[3px] focus:ring-brand-600/10
@@ -216,7 +216,7 @@
 
           <!-- Password -->
           <div class="relative mb-3">
-            <input type="password" name="password" placeholder="Password" required
+            <input type="password" name="password" data-translate="auth_password" placeholder="Password" required
                    class="w-full py-[11.5px] pl-[38px] pr-3 border border-[#d5ddf0] rounded-[10px]
                           text-[13.5px] text-slate-900 bg-[#f4f7fd] outline-none
                           focus:border-brand-600 focus:bg-white focus:ring-[3px] focus:ring-brand-600/10
@@ -226,7 +226,7 @@
 
           <!-- Django auth errors -->
           {% if form.errors %}
-            <p class="text-red-500 text-[12px] mb-2">
+            <p class="text-red-500 text-[12px] mb-2" data-translate="auth_invalid_credentials">
               Invalid email or password. Please try again.
             </p>
           {% endif %}
@@ -243,14 +243,14 @@
                   class="w-full py-3 mt-1 mb-[13px] bg-gradient-to-br from-brand-700 to-brand-500
                          text-white rounded-[10px] text-[14.5px] font-semibold tracking-[0.2px]
                          hover:opacity-90 hover:-translate-y-px active:translate-y-0
-                         transition-all duration-150 cursor-pointer border-none">
+                         transition-all duration-150 cursor-pointer border-none" data-translate="auth_sign_in">
             Sign In
           </button>
 
           <!-- Divider -->
           <div class="flex items-center gap-2 mb-3">
             <hr class="flex-1 border-none border-t border-[#dde4f0]"/>
-            <span class="text-[12px] text-slate-400 whitespace-nowrap">or continue with</span>
+            <span class="text-[12px] text-slate-400 whitespace-nowrap" data-translate="auth_or_continue_with">or continue with</span>
             <hr class="flex-1 border-none border-t border-[#dde4f0]"/>
           </div>
 
@@ -280,16 +280,16 @@
 
         <!-- Login mode message -->
         <div id="msg-login" class="flex flex-col items-center gap-0">
-          <h2 class="font-display text-[30px] leading-tight mb-[11px]">
+          <h2 class="font-display text-[30px] leading-tight mb-[11px]" data-translate="auth_hello_welcome">
             Hello,<br/>Welcome!
           </h2>
-          <p class="text-[13.5px] opacity-80 leading-relaxed mb-7">
+          <p class="text-[13.5px] opacity-80 leading-relaxed mb-7" data-translate="auth_no_account">
             Don't have an account?<br/>Join us and get started today.
           </p>
           <button onclick="switchTo('signup')"
                   class="px-8 py-[10.5px] border-2 border-white/80 rounded-full bg-transparent
                          text-white text-[14px] font-semibold tracking-[0.3px]
-                         hover:bg-white/90 hover:text-brand-600 transition-all cursor-pointer">
+                         hover:bg-white/90 hover:text-brand-600 transition-all cursor-pointer" data-translate="auth_sign_up">
             Sign Up
           </button>
         </div>
@@ -298,16 +298,16 @@
         <div id="msg-signup"
              class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%]
                     flex flex-col items-center gap-0">
-          <h2 class="font-display text-[30px] leading-tight mb-[11px]">
+          <h2 class="font-display text-[30px] leading-tight mb-[11px]" data-translate="auth_welcome_back">
             Welcome<br/>Back!
           </h2>
-          <p class="text-[13.5px] opacity-80 leading-relaxed mb-7">
+          <p class="text-[13.5px] opacity-80 leading-relaxed mb-7" data-translate="auth_have_account">
             Already have an account?<br/>Sign in to continue.
           </p>
           <button onclick="switchTo('login')"
                   class="px-8 py-[10.5px] border-2 border-white/80 rounded-full bg-transparent
                          text-white text-[14px] font-semibold tracking-[0.3px]
-                         hover:bg-white/90 hover:text-brand-600 transition-all cursor-pointer">
+                         hover:bg-white/90 hover:text-brand-600 transition-all cursor-pointer" data-translate="auth_sign_in">
             Sign In
           </button>
         </div>

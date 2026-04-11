@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 
 from .forms import RegisterForm, LoginForm
 from .models import Profile
-from .models import Lesson 
+from .models import Lesson,Module,Course
 
 
 User = get_user_model()
@@ -24,6 +24,12 @@ def about_us(request):
     """Render the About Us page."""
     # the template lives under the accounts app's templates folder
     return render(request, "accounts/AboutUs.html")
+
+
+def how_it_works(request):
+    """Render the How It Works page."""
+    # the template lives under the accounts app's templates folder
+    return render(request, "accounts/HowItWorks.html")
 
 
 def auth(request):
@@ -111,6 +117,16 @@ def logout_view(request):
     return redirect('home')
 
 def word_course(request):
-    # Fetch all lessons from the database to show in the sidebar
-    lessons = Lesson.objects.all().order_by('order')
-    return render(request, 'accounts/word.html', {'lessons': lessons})
+    # Fetch modules and prefetch their lessons to keep it fast
+    modules = Module.objects.filter(course__name="Microsoft Word").prefetch_related('lessons')
+    return render(request, 'accounts/word.html', {'modules': modules})
+
+def excel_course(request):
+    # Fetch modules and prefetch their lessons to keep it fast
+    modules = Module.objects.filter(course__name="Microsoft Excel").prefetch_related('lessons')
+    return render(request, 'accounts/excel.html', {'modules': modules})
+
+def powerpoint_course(request):
+    # Fetch modules and prefetch their lessons to keep it fast
+    modules = Module.objects.filter(course__name="Microsoft PowerPoint").prefetch_related('lessons')
+    return render(request, 'accounts/powerpoint.html', {'modules': modules})
